@@ -1,0 +1,5 @@
+#vscode
+.vscode
+#driver build result
+*.d
+*.cmd

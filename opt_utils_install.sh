@@ -26,6 +26,12 @@ apt install gnome-tweak-tool chrome-gnome-shell adapta-gtk-theme flat-remix -y
 	
 success_log "install tweak done..."
 
+#install offline pkgs
+dpkg -i bins/pkg/slack-desktop-4.24.0-amd64.deb
+
+#install more..
+apt install -y terminator filezilla
+
 apt --fix-broken install
 apt autoremove -y
 apt autopurge -y

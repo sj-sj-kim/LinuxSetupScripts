@@ -1,5 +1,7 @@
 #vscode
 .vscode
+#deb files
+*.deb
 #driver build result
 *.d
 *.cmd

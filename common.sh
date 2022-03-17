@@ -6,6 +6,7 @@ readonly HOSTNAME="sungjun-linux"
 readonly GIT_NAME="Kim SungJun"
 readonly GIT_EMAIL="sungjun.kim@stradvision.com"
 readonly DEFAULT_GITCONFIG="default.gitconfig"
+readonly NVIDIA_DRV_VERSION="autoinstall"
 
 ##########################################################################################
 # DONT TOUCH FOLLOWING SCRIPTS

@@ -15,7 +15,7 @@ fi
 
 #Podman install
 progress_log $LOGPREFIX "Install Podman..."
-: <<'END'
+
 . /etc/os-release
 echo "deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_${VERSION_ID}/ /" | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
 curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_${VERSION_ID}/Release.key | sudo apt-key add -
@@ -27,7 +27,7 @@ success_log "install podman done..."
 
 #NVidia container toolkit install
 progress_log $LOGPREFIX "Install NVidia container toolkit..."
-: <<'END'
+
 curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
 distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
     && curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list

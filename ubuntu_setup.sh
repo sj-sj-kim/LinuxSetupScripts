@@ -64,17 +64,19 @@ success_log "Compatibility check done.. $MACH_MODEL_NAME, $MACH_UBUNTU_VER"
 
 # change HOSTNAME
 progress_log "Ubuntu Setup" "Change Hostname to $HOSTNAME"
-: <<'END'
 echo $HOSTNAME | tee /etc/hostname
-END
 
 # update apt, apt repo, install some basic packages for set-up
 progress_log "Ubuntu Setup" "Update basic packages..."
-: <<'END'
+
+#DONT UPGRADE LINUX-image,header
+apt-mark hold linux-headers-generic linux-image-generic linux-modules-generic linux-modules-extra-generic
+
+
 apt update
 apt upgrade -y
-apt install -y software-properties-common apt-transport-https wget build-essential vim curl ubuntu-drivers-common wget git cmake doxygen graphviz openjdk-17-jre
-END
+apt install -y software-properties-common apt-transport-https wget build-essential vim curl ubuntu-drivers-common wget git cmake doxygen graphviz openjdk-17-jre pv net-tools
+
 success_log " Package update done...."
 
 #install model specific driver

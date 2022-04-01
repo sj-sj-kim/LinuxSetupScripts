@@ -26,11 +26,15 @@ apt install gnome-tweak-tool chrome-gnome-shell adapta-gtk-theme flat-remix -y
 	
 success_log "install tweak done..."
 
+#install VPN tools
+wget https://dl.technion.ac.il/docs/cis/public/ssl-vpn/ps-pulse-ubuntu-debian.deb -P ./bins/pkg
+apt install -y libcurl4 libnss3-tools && dpkg -i bins/pkg/ps-pulse-ubuntu-debian.deb
+
 #install offline pkgs
 dpkg -i bins/pkg/slack-desktop-4.24.0-amd64.deb
 
 #install more..
-apt install -y terminator filezilla
+apt install -y terminator filezilla meld vlc
 
 apt --fix-broken install
 apt autoremove -y

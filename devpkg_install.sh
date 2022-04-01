@@ -22,7 +22,6 @@ curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/
 apt update
 apt upgrade -y
 apt install -y podman
-END
 success_log "install podman done..."
 
 #NVidia container toolkit install
@@ -66,6 +65,9 @@ apt update
 apt upgrade -y
 apt install -y code microsoft-edge-stable
 
+#install GTKterm
+apt install -y gtkterm
+usermod -a -G dialout $INSTALL_USER
 
 success_log "Finish all set-up done! need reboot now!"
 

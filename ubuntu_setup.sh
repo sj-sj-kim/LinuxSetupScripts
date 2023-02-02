@@ -75,7 +75,7 @@ apt-mark hold linux-headers-generic linux-image-generic linux-modules-generic li
 
 apt update
 apt upgrade -y
-apt install -y software-properties-common apt-transport-https wget build-essential vim curl ubuntu-drivers-common wget git cmake doxygen graphviz openjdk-17-jre pv net-tools
+apt install -y software-properties-common apt-transport-https wget build-essential vim curl ubuntu-drivers-common wget git cmake doxygen graphviz openjdk-17-jre pv net-tools exfat-fuse exfat-utils
 
 success_log " Package update done...."
 

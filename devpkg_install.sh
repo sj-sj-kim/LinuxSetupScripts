@@ -75,7 +75,7 @@ if ! which code >> /dev/null; then
 fi
 
 #install GTKterm
-if ! which code >> /dev/null; then
+if ! which gtkterm >> /dev/null; then
     apt install -y gtkterm
     usermod -a -G dialout $INSTALL_USER
     success_log "install gtkterm done..."

@@ -70,7 +70,7 @@ echo $HOSTNAME | tee /etc/hostname
 progress_log "Ubuntu Setup" "Update basic packages..."
 
 #DONT UPGRADE LINUX-image,header
-apt-mark hold linux-headers-generic linux-image-generic linux-modules-generic linux-modules-extra-generic
+#apt-mark hold linux-headers-generic linux-image-generic linux-modules-generic linux-modules-extra-generic
 
 
 apt update

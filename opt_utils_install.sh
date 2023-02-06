@@ -22,7 +22,7 @@ success_log "language pack update done...."
 add-apt-repository ppa:daniruiz/flat-remix -y
 add-apt-repository ppa:tista/adapta -y
 apt-get update -y
-apt install gnome-tweak-tool chrome-gnome-shell adapta-gtk-theme flat-remix -y
+apt install gnome-tweak-tool gnome-shell-extensions chrome-gnome-shell adapta-gtk-theme flat-remix -y
 	
 success_log "install tweak done..."
 
@@ -31,7 +31,7 @@ wget https://dl.technion.ac.il/docs/cis/public/ssl-vpn/ps-pulse-ubuntu-debian.de
 apt install -y libcurl4 libnss3-tools && dpkg -i bins/pkg/ps-pulse-ubuntu-debian.deb
 
 #install offline pkgs
-dpkg -i bins/pkg/slack-desktop-4.24.0-amd64.deb
+dpkg -i bins/slack-desktop-4.29.149-amd64.deb
 
 #install more..
 apt install -y terminator filezilla meld vlc

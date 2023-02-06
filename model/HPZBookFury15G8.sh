@@ -3,6 +3,8 @@
 # DONT TOUCH FOLLOWING SCRIPTS
 ##########################################################################################
 readonly ETHERNET_DRV="intel-e1000e-3.8.7"
+#readonly NVIDIA_DRV_VERSION="autoinstall"
+readonly NVIDIA_DRV_VERSION="510"
 readonly LOG_PREFIX="HPZBookFury15G8"
 
 function install_model_drivers() {

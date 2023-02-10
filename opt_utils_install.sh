@@ -34,7 +34,7 @@ apt install -y libcurl4 libnss3-tools && dpkg -i bins/pkg/ps-pulse-ubuntu-debian
 dpkg -i bins/slack-desktop-4.29.149-amd64.deb
 
 #install more..
-apt install -y terminator filezilla meld vlc
+apt install -y terminator filezilla meld vlc sshfs remmina
 
 apt --fix-broken install
 apt autoremove -y

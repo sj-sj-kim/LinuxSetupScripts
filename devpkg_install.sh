@@ -13,56 +13,6 @@ if [ $EUID -ne 0 ]; then
 	exit 1
 fi
 
-#Podman install
-### Check nvidia driver
-if ! which podman >> /dev/null; then
-    progress_log $LOGPREFIX "Install Podman..."
-
-    . /etc/os-release
-    echo "deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_${VERSION_ID}/ /" | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
-    curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_${VERSION_ID}/Release.key | sudo apt-key add -
-    apt update
-    apt upgrade -y
-    apt install -y podman
-    success_log "install podman done..."
-fi
-
-#NVidia container toolkit install
-dpkg -l | grep nvidia-container-toolkit
-if [ $? -ne 0 ]; then
-    progress_log $LOGPREFIX "Install NVidia container toolkit..."
-
-    curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
-    distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
-        && curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
-    apt update
-    apt upgrade -y
-    apt install -y nvidia-container-toolkit
-    sed -i 's/^#no-cgroups = false/no-cgroups = true/;' /etc/nvidia-container-runtime/config.toml
-
-    HookFile=/usr/share/containers/oci/hooks.d/oci-nvidia-hook.json
-    mkdir -p `dirname $HookFile`
-    cat << EOF > $HookFile
-    {
-        "version": "1.0.0",
-        "hook": {
-            "path": "/usr/bin/nvidia-container-toolkit",
-            "args": ["nvidia-container-toolkit", "prestart"],
-            "env": [
-                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-            ]
-        },
-        "when": {
-            "always": true,
-            "commands": [".*"]
-        },
-        "stages": ["prestart"]
-    }
-EOF
-END
-    success_log "install NVidia Container-toolkit done..."
-fi
-
 #VS Code/Edge/Teams Install
 if ! which code >> /dev/null; then
     wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
@@ -82,8 +32,13 @@ if ! which gtkterm >> /dev/null; then
     success_log "install gtkterm done..."
 fi
 
-#install fancy-git
+#install fancy-git, https://github.com/diogocavilha/fancy-git
 curl -sS https://raw.githubusercontent.com/diogocavilha/fancy-git/master/install.sh | sh
+
+##disable time
+fancygit --suggested-global-git-config-apply
+fancygit --disable-time
+fancygit --enable-host-name
 
 success_log "Finish all set-up done! need reboot now!"
 

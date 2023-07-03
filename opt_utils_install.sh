@@ -18,7 +18,7 @@ apt install -y language-pack-ko language-pack-gnome-ko-base
 export LANG=C; xdg-user-dirs-gtk-update
 success_log "language pack update done...."
 
-#### tweak & theme download
+#### tweak & theme download refer : https://seonghyuk.tistory.com/168
 add-apt-repository ppa:daniruiz/flat-remix -y
 add-apt-repository ppa:tista/adapta -y
 apt-get update -y
@@ -31,10 +31,10 @@ wget https://dl.technion.ac.il/docs/cis/public/ssl-vpn/ps-pulse-ubuntu-debian.de
 apt install -y libcurl4 libnss3-tools && dpkg -i bins/pkg/ps-pulse-ubuntu-debian.deb
 
 #install offline pkgs
-dpkg -i bins/slack-desktop-4.29.149-amd64.deb
+snap install slack --classic
 
 #install more..
-apt install -y terminator filezilla meld vlc sshfs remmina kolourpaint gdb-multiarch
+apt-get install -y terminator filezilla meld vlc sshfs remmina kolourpaint gdb-multiarch
 
 apt --fix-broken install
 apt autoremove -y

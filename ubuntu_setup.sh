@@ -75,7 +75,7 @@ progress_log "Ubuntu Setup" "Update basic packages..."
 
 apt update
 apt upgrade -y
-apt install -y software-properties-common apt-transport-https wget build-essential vim curl ubuntu-drivers-common wget git cmake doxygen graphviz openjdk-17-jre pv net-tools exfat-fuse exfat-utils
+apt install -y software-properties-common apt-transport-https wget build-essential vim curl ubuntu-drivers-common wget git cmake doxygen graphviz openjdk-17-jre pv net-tools exfat-fuse exfat-utils curl
 
 success_log " Package update done...."
 

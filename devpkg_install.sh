@@ -63,15 +63,16 @@ END
     success_log "install NVidia Container-toolkit done..."
 fi
 
-#VS Code/Edge Install
+#VS Code/Edge/Teams Install
 if ! which code >> /dev/null; then
     wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
     add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
     add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/edge stable main"
+    add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/ms-teams stable main"
     apt update
     apt upgrade -y
-    apt install -y code microsoft-edge-stable
-    success_log "install Code, Edge done..."
+    apt install -y code microsoft-edge-stable teams
+    success_log "install Code, Edge, Teams done..."
 fi
 
 #install GTKterm
@@ -80,6 +81,9 @@ if ! which gtkterm >> /dev/null; then
     usermod -a -G dialout $INSTALL_USER
     success_log "install gtkterm done..."
 fi
+
+#install fancy-git
+curl -sS https://raw.githubusercontent.com/diogocavilha/fancy-git/master/install.sh | sh
 
 success_log "Finish all set-up done! need reboot now!"
 

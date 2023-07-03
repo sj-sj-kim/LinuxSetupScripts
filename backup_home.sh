@@ -9,9 +9,9 @@ BACKUP_DIR_LIST=(
    "/home/${INSTALL_USER}/Pictures"
    "/home/${INSTALL_USER}/Music"
    "/home/${INSTALL_USER}/Projects"
-   "/home/${INSTALL_USER}/workspace"
+   "/home/${INSTALL_USER}/Workspace"
    "/home/${INSTALL_USER}/.ssh"
-   "/home/${INSTALL_USER}/backup"
+   "/home/${INSTALL_USER}/Backup"
 )
 BACKUP_DST_PATH="/media/sungjun.kim/SSD-T7-2T"
 BACKUP_TAR_PATH="/home/${INSTALL_USER}"

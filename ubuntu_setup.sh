@@ -72,10 +72,43 @@ progress_log "Ubuntu Setup" "Update basic packages..."
 #DONT UPGRADE LINUX-image,header
 #apt-mark hold linux-headers-generic linux-image-generic linux-modules-generic linux-modules-extra-generic
 
+#Add microsoft repo
+wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
+add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/edge stable main"
+#### tweak & theme download refer : https://seonghyuk.tistory.com/168
+add-apt-repository ppa:daniruiz/flat-remix -y
+add-apt-repository ppa:tista/adapta -y
 
+#install base packages
 apt update
 apt upgrade -y
-apt install -y software-properties-common apt-transport-https wget build-essential vim curl ubuntu-drivers-common wget git cmake doxygen graphviz openjdk-17-jre pv net-tools exfat-fuse exfat-utils curl
+apt install -y software-properties-common apt-transport-https wget build-essential vim curl \
+   ubuntu-drivers-common wget git cmake doxygen graphviz openjdk-17-jre pv net-tools \
+   exfat-fuse exfat-utils code microsoft-edge-stable gtkterm language-pack-ko language-pack-gnome-ko-base \
+   gnome-tweak-tool gnome-shell-extensions chrome-gnome-shell adapta-gtk-theme flat-remix \
+   libcurl4 libnss3-tools terminator filezilla meld vlc sshfs remmina kolourpaint gdb-multiarch
+
+#install VPN
+wget https://dl.technion.ac.il/docs/cis/public/ssl-vpn/ps-pulse-ubuntu-debian.deb -P ./bins/pkg
+dpkg -i bins/pkg/ps-pulse-ubuntu-debian.deb
+
+#install slack
+snap install slack --classic
+
+#Add user group for tty
+usermod -a -G dialout $INSTALL_USER
+
+#install fancy-git, https://github.com/diogocavilha/fancy-git
+curl -sS https://raw.githubusercontent.com/diogocavilha/fancy-git/master/install.sh | sh
+#. ~/.fancygit --suggested-global-git-config-apply
+#. ~/.fancygit --disable-time
+#. ~/.fancygit --enable-host-name
+
+apt --fix-broken install
+apt autoremove -y
+apt autopurge -y
+apt autoclean -y
 
 success_log " Package update done...."
 
@@ -86,6 +119,8 @@ if [ $? -ne 0 ]; then
    error_log "driver install fail..."
 	exit 1
 fi
+
+export LANG=C; xdg-user-dirs-gtk-update
 
 success_log "Finish all set-up done! need reboot now!"
 

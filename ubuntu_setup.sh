@@ -87,7 +87,8 @@ apt install -y software-properties-common apt-transport-https wget build-essenti
    ubuntu-drivers-common wget git cmake doxygen graphviz openjdk-17-jre pv net-tools \
    exfat-fuse exfat-utils code microsoft-edge-stable gtkterm language-pack-ko language-pack-gnome-ko-base \
    gnome-tweak-tool gnome-shell-extensions chrome-gnome-shell adapta-gtk-theme flat-remix \
-   libcurl4 libnss3-tools terminator filezilla meld vlc sshfs remmina kolourpaint gdb-multiarch
+   libcurl4 libnss3-tools terminator filezilla meld vlc sshfs remmina kolourpaint gdb-multiarch \
+   tree sshpass
 
 #install VPN
 wget https://dl.technion.ac.il/docs/cis/public/ssl-vpn/ps-pulse-ubuntu-debian.deb -P ./bins/pkg

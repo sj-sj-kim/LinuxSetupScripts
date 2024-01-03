@@ -88,7 +88,7 @@ apt install -y software-properties-common apt-transport-https wget build-essenti
    exfat-fuse exfat-utils code microsoft-edge-stable gtkterm language-pack-ko language-pack-gnome-ko-base \
    gnome-tweak-tool gnome-shell-extensions chrome-gnome-shell adapta-gtk-theme flat-remix \
    libcurl4 libnss3-tools terminator filezilla meld vlc sshfs remmina kolourpaint gdb-multiarch \
-   tree sshpass
+   tree sshpass git-lfs
 
 #install VPN
 wget https://dl.technion.ac.il/docs/cis/public/ssl-vpn/ps-pulse-ubuntu-debian.deb -P ./bins/pkg
@@ -99,12 +99,6 @@ snap install slack --classic
 
 #Add user group for tty
 usermod -a -G dialout $INSTALL_USER
-
-#install fancy-git, https://github.com/diogocavilha/fancy-git
-curl -sS https://raw.githubusercontent.com/diogocavilha/fancy-git/master/install.sh | sh
-#. ~/.fancygit --suggested-global-git-config-apply
-#. ~/.fancygit --disable-time
-#. ~/.fancygit --enable-host-name
 
 apt --fix-broken install
 apt autoremove -y

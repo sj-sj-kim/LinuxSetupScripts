@@ -97,6 +97,9 @@ dpkg -i bins/pkg/ps-pulse-ubuntu-debian.deb
 #install slack
 snap install slack --classic
 
+#install teams
+snap install teams-for-linux
+
 #Add user group for tty
 usermod -a -G dialout $INSTALL_USER
 

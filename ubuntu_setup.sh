@@ -5,16 +5,19 @@
 MACH_UBUNTU_VER="UNKNOWN"
 MACH_MODEL_NAME="UNKNOWN"
 SUPPORTED_UBUNTU_VER=(
+   "24.04"
    "20.04"
    "18.04"
 )
 
 SUPPORTED_COM_MODEL_FULL=(
    "HP ZBook Fury 15.6 inch G8 Mobile Workstation PC"
+   "NT961XGL-X06/C"
 )
 
 SUPPORTED_COM_MODEL_SHORT=(
    "HPZBookFury15G8"
+   "SamsungGalaxyBook4Ultra"
 )
 
 source common.sh
@@ -24,6 +27,13 @@ progress_log "Ubuntu Setup" "Check Root permission"
 if [ $EUID -ne 0 ]; then
    error_log "You must execute this script with sudo command: sudo bash $0"
 	exit 1
+fi
+
+# 실제 로그인한 유저명 가져오기 (gsettings 설정용)
+REAL_USER=$SUDO_USER
+if [ -z "$REAL_USER" ]; then
+  echo "Can't found SUDO_USER..."
+  exit 1
 fi
 
 #Compatibility Check
@@ -66,39 +76,27 @@ success_log "Compatibility check done.. $MACH_MODEL_NAME, $MACH_UBUNTU_VER"
 progress_log "Ubuntu Setup" "Change Hostname to $HOSTNAME"
 echo $HOSTNAME | tee /etc/hostname
 
+#use local TZ for dual boot
+timedatectl set-local-rtc 1 --adjust-system-clock
+
 # update apt, apt repo, install some basic packages for set-up
 progress_log "Ubuntu Setup" "Update basic packages..."
-
-#DONT UPGRADE LINUX-image,header
-#apt-mark hold linux-headers-generic linux-image-generic linux-modules-generic linux-modules-extra-generic
+install_default_pkgs
+if [ $? -ne 0 ]; then
+   error_log "install_default_pkgs fail.."
+   exit 1
+fi
 
 #Add microsoft repo
-wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
-add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
-add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/edge stable main"
-#### tweak & theme download refer : https://seonghyuk.tistory.com/168
-add-apt-repository ppa:daniruiz/flat-remix -y
-add-apt-repository ppa:tista/adapta -y
-
-#install base packages
-apt update
-apt upgrade -y
-apt install -y software-properties-common apt-transport-https wget build-essential vim curl \
-   ubuntu-drivers-common wget git cmake doxygen graphviz openjdk-17-jre pv net-tools \
-   exfat-fuse exfat-utils code microsoft-edge-stable gtkterm language-pack-ko language-pack-gnome-ko-base \
-   gnome-tweak-tool gnome-shell-extensions chrome-gnome-shell adapta-gtk-theme flat-remix \
-   libcurl4 libnss3-tools terminator filezilla meld vlc sshfs remmina kolourpaint gdb-multiarch \
-   tree sshpass git-lfs resolvconf
-
-#install VPN
-wget https://dl.technion.ac.il/docs/cis/public/ssl-vpn/ps-pulse-ubuntu-debian.deb -P ./bins/pkg
-dpkg -i bins/pkg/ps-pulse-ubuntu-debian.deb
+progress_log "Ubuntu Setup" "Install MicroSoft repo,packages..."
+#add_ms_repo
+#if [ $? -ne 0 ]; then
+#   error_log "add_ms_repo fail.."
+#   exit 1
+#fi
 
 #install slack
 snap install slack --classic
-
-#install teams
-snap install teams-for-linux
 
 #Add user group for tty
 usermod -a -G dialout $INSTALL_USER
@@ -112,13 +110,15 @@ success_log " Package update done...."
 
 #install model specific driver
 progress_log "Ubuntu Setup" "install $MACH_MODEL_NAME drivers..."
-install_model_drivers "$(pwd)/bins/driver"
+install_graph_driver
 if [ $? -ne 0 ]; then
-   error_log "driver install fail..."
-	exit 1
+   error_log "install_graph_driver fail.."
+   exit 1
 fi
 
-export LANG=C; xdg-user-dirs-gtk-update
+#hangul key
+progress_log "Ubuntu Setup" "setup HANGUL keys..."
+set_hangul_key
 
 success_log "Finish all set-up done! need reboot now!"
 
